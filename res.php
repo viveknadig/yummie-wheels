@@ -76,7 +76,14 @@ session_start();
                 </a>
                 <a href="./login.php">
                     <div class="menu-item">
-                        Login
+                    <?php
+							if(!isset($_SESSION['uid'])){
+                                echo "Login";
+                            }
+                            else{
+                                echo "Profile";
+                            }
+                    ?>
                     </div>
                 </a>
             </div>

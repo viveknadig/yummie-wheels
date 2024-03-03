@@ -1,7 +1,8 @@
-<?php 
-session_start();
-?>
+<?php
 
+$status=$_GET['no'];
+
+?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -15,23 +16,22 @@ session_start();
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-    <!-- MOBILE NAV -->
-    <div class="mb-nav">
+      <!-- MOBILE NAV -->
+      <div class="mb-nav">
         <div class="mb-move-item"></div>
-        <div class="mb-nav-item active">
+        <div class="mb-nav-item">
             <a href="./index.php">
                 <i class="bx bxs-home"></i>
             </a>
         </div>
-        <div class="mb-nav-item">
+        <div class="mb-nav-item active">
             <a href="./res.php">
                 <i class='bx bxs-wink-smile'></i>
             </a>
         </div>
         <div class="mb-nav-item">
-            <a href="./orders.php">
+            <a href="./order.php">
                 <i class='bx bxs-food-menu'></i>
             </a>
         </div>
@@ -43,21 +43,21 @@ session_start();
     </div>
     <!-- END MOBILE NAV -->
     <!-- BACK TO TOP BTN -->
-    <a href="#home" class="back-to-top">
+    <a href="#" class="back-to-top">
         <i class="bx bxs-to-top"></i>
     </a>
     <!-- END BACK TO TOP BTN -->
     <!-- TOP NAVIGATION -->
     <div class="nav">
         <div class="menu-wrap">
-            <a href="#home">
+            <a href="./index.php">
                 <div class="logo">
                     Yummie Wheels
                 </div>
             </a>
             <div class="menu h-xs">
                 <a href="./index.php">
-                    <div class="menu-item active">
+                    <div class="menu-item">
                         Home
                     </div>
                 </a>
@@ -72,15 +72,8 @@ session_start();
                     </div>
                 </a>
                 <a href="./login.php">
-                    <div class="menu-item">
-                    <?php
-							if(!isset($_SESSION['uid'])){
-                                echo "Login";
-                            }
-                            else{
-                                echo "Profile";
-                            }
-                    ?>
+                    <div class="menu-item active">
+                        Login
                     </div>
                 </a>
             </div>
@@ -91,81 +84,45 @@ session_start();
             </div>
         </div>
     </div>
-    <!-- END TOP NAVIGATION -->
-    <!-- SECTION HOME -->
-    <section id="home" class="fullheight align-items-center bg-img bg-img-fixed"
-        style="background-image: url(img/ff2.jpg);">
-        <div class="container">
-            <div class="row">
-                <div class="col-6 col-xs-12">
-                    <div class="slogan">
-                        <h1 class="left-to-right play-on-scroll">
-                            Yummie Wheels
-                        </h1>
-                        <p class="left-to-right play-on-scroll delay-2">
-                            Yummie Wheels is a food delivery service that brings delicious meals to your doorsteps in minutes.You can choose from a variety of cuisines and restaurants, and enjoy exclusive offers and discounts.
-                        </p>
-                        <div class="left-to-right play-on-scroll delay-4">
-                            <button onClick="window.location.href='./res.php';">
-                                Order Now
-                            </button>
-                        </div>
+    <section class="card-lo">
+    <div class="card-login" style="text-align: center;">
+      <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">
+      
+      <?php
+              if($status==1){
+                echo<<<success
+                  <i class="checkmark">✓</i>
+                  </div>
+                  <h1 style="color: #88B04B;font-weight: 900;font-size: 40px;margin-bottom: 10px;">Success</h1> 
+                  <p style="color: #404F5E;font-size:20px;margin: 0;">User Successfully Registered<br/>You can now login via the credentials</p>
+                  success;
+                  header( "refresh:5;url=./login.php" );
+                }
+                elseif($status==0){
+                    echo<<<fail
+                    <i class="checkmark"  style="color: #ff3333;">☓</i>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- END SECTION HOME -->
-    <!-- SECION ABOUT -->
-    <section class="about fullheight align-items-center" id="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-7 h-xs">
-                    <img src="assets/Untitled design.png" alt=""   width: 15px;
-                    height: 15x;
-                        class="fullwidth left-to-right play-on-scroll">
-                </div>
-                <div class="col-5 col-xs-12 align-items-center">
-                    <div class="about-slogan right-to-left play-on-scroll">
-                        <h3>
-                            <span class="third-color">We</span> create <span class="third-color">delicious</span>
-                            memories for <span class="third-color">you</span>
-                        </h3>
-                        <p>
-                            Are you Hungry for some delicious food,but don't have the time or energy to cook or go out?Don't worry
-                            We have you covered! Our food delivery service is the best way to enjoy your favorite dishes from a variety of 
-                            cuisines,delivered right to your door in minutes
-                        </p>
+                    <h1 style="color: #ff3333;font-weight: 900;font-size: 40px;margin-bottom: 10px;">Error</h1> 
+                    <p style="color: #404F5E;font-size:20px;margin: 0;">User already Exists<br/>Try registering with new email</p>
+                    fail;
+                    header( "refresh:5;url=./register.php" );
+                }
+                elseif($status==2){
+                    echo<<<invalid
+                    <i class="checkmark"  style="color: #ff3333;">☓</i>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- END SECION ABOUT -->
-    <!-- FOOD MENU SECTION -->
-    <section class="align-items-center bg-img bg-img-fixed" id="food-menu-section"
-        style="background-image: url(assets/katherine-chase-4MMK78S7eyk-unsplash.jpg);">
-        <div class="container">
-            <div class="food-menu">
-                <h1>
-                    What will <span class="primary-color">you</span> eat today?
-                </h1>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque alias aliquam eveniet, iure
-                    praesentium dicta ex dolorum inventore itaque minus repudiandae, odio provident? Velit architecto
-                    natus expedita non? Odio, dolorum.
-                </p>
-                <div class="food-category">
-                    <!-- <div class="zoom play-on-scroll"> -->
-                        
+                    <h1 style="color: #ff3333;font-weight: 900;font-size: 40px;margin-bottom: 10px;">Error</h1> 
+                    <p style="color: #404F5E;font-size:20px;margin: 0;">Invalid Username or Password<br/>Try Using the right one</p>
+                    invalid;
+                    header( "refresh:3;url=./login.php" );
+                }
 
-               
-            </div>
-        </div>
+      ?>
+
+
+
+      </div>
     </section>
-    <!-- END FOOD MENU SECTION -->
-    
-    <!-- FOOTER SECTION -->
     <section class="footer bg-img" style="background-color: var(--third-color);">
         <div class="container">
             <div class="row">
@@ -217,9 +174,5 @@ session_start();
             </div>
         </div>
     </section>
-    <!-- END FOOTER SECTION -->
 
-    <script src="js/main.js"></script>
 </body>
-
-</html>

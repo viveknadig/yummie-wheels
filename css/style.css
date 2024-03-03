@@ -952,3 +952,20 @@ aside {
     -webkit-box-shadow: none;
     box-shadow: none;
 }
+.checkmark{
+    font-size: 100px;
+    line-height: 200px;
+    margin-left:-15px;
+}
+.card-login {
+    background: white;
+    padding: 60px;
+    border-radius: 4px;
+    box-shadow: 0 2px 3px #C8D0D8;
+    display: inline-block;
+    margin: 0 auto;
+  }
+  .card-lo{
+    display: flex;
+justify-content: center;
+  }

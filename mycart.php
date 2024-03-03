@@ -6,6 +6,7 @@ $menuc_id=$_GET['m_no'];
 $resc_name=$_GET['r_name'];
 $menuc_name=$_GET['m_name'];
 $menuc_price=$_GET['m_price'];
+$uid=$_SESSION['uid']
 
 ?>
 
@@ -80,7 +81,14 @@ $menuc_price=$_GET['m_price'];
                 </a>
                 <a href="./login.php">
                     <div class="menu-item">
-                        Login
+                    <?php
+							if(!isset($_SESSION['uid'])){
+                                echo "Login";
+                            }
+                            else{
+                                echo "Profile";
+                            }
+                    ?>
                     </div>
                 </a>
             </div>
@@ -122,7 +130,7 @@ $menuc_price=$_GET['m_price'];
       <p class="pizza__detail">₹ <?php echo $menuc_price?></p>
     </div>
     <div class="col-md-4 col-sm-4 margin-bottom-40">
-          <a href="./order?menu_id=<?php echo $menuc_id?>&u_id=" class="btn btn-mod btn-border btn-circle btn-medium">
+          <a href="./order?menu_id=<?php echo $menuc_id?>&u_id=<?php echo $uid?>" class="btn btn-mod btn-border btn-circle btn-medium">
             Order Now
           </a>
         </div>
