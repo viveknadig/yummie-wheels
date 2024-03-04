@@ -116,6 +116,15 @@ $status=$_GET['no'];
                     invalid;
                     header( "refresh:3;url=./login.php" );
                 }
+                elseif($status==3){
+                    echo<<<invalid
+                    <i class="checkmark"  style="color: #ff3333;">☓</i>
+                    </div>
+                    <h1 style="color: #ff3333;font-weight: 900;font-size: 40px;margin-bottom: 10px;">Error</h1> 
+                    <p style="color: #404F5E;font-size:20px;margin: 0;">Please Login First<br/>To  Orders From our Website Please login first</p>
+                    invalid;
+                    header( "refresh:3;url=./login.php" );
+                }
 
       ?>
 

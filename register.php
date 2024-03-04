@@ -119,7 +119,7 @@
 
 								<div class="form-group">
 									<label for="phonenumber">Phone number</label>
-									<input type="number" minlength="10" maxlength="10" name="phonenumber" class="form-control">
+									<input type="number" name="phonenumber" class="form-control" minlength="10" required>
 									<div class="invalid-feedback">
 										Phone Number is required
 									</div>

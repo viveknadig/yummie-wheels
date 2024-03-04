@@ -1,15 +1,13 @@
 <?php
-use PhpMyAdmin\Table;
 include 'db_connect.php';
 session_start();
-$menuc_id=$_GET['m_no'];
-$resc_name=$_GET['r_name'];
-$menuc_name=$_GET['m_name'];
-$menuc_price=$_GET['m_price'];
 $uid=$_SESSION['uid'];
-
+if(!isset($_SESSION['uid'])){
+    header('Location: ./error.php?no=3');
+}
+$sqlo="select M.img,D.name as dname,M.item_name,R.name as rname,O.order_id,O.order_total,O.delivery_status from Orders O,Menu M,Users U,Drivers D,Restaurants R where O.user_id=U.user_id and D.driver_id=O.driver_id and M.menu_id=O.menu_id and M.restaurant_id=R.restaurant_id and O.user_id=$uid";
+$reso=mysqli_query($conn, $sqlo);
 ?>
-
 <!DOCTYPE html>
 
 <html lang="en">
@@ -70,12 +68,12 @@ $uid=$_SESSION['uid'];
                     </div>
                 </a>
                 <a href="./res.php">
-                    <div class="menu-item active">
+                    <div class="menu-item">
                         Restaurants
                     </div>
                 </a>
                 <a href="./order.php">
-                    <div class="menu-item">
+                    <div class="menu-item active">
                         Orders
                     </div>
                 </a>
@@ -107,39 +105,72 @@ $uid=$_SESSION['uid'];
         <section>
         <div class="container">
             <div class="">
+                <?php
+
+                ?>
                 <h1 style="text-align: center;">
-                    My  <span class="third-color">cart</span>
+                    My  <span class="third-color">Orders</span>
                 </h1>
                 <p style="text-align: center;">
-                    Here is the order summary:
+                    Here is the List of all Orders:
                 </p>
             </div>
         </div>
     <br>
-    <div class="pi">
+    <?php
+    if (mysqli_num_rows($reso) <=0) {
+    echo <<<noord
+    "<h2 style="text-align: center;">
+    No Orders Yet</h2>
+    <div class="slogan" style="    display: flex;
+    justify-content: center;">
+    <button onclick="window.location.href='./res.php';">Order Now</button>
+    </div>
+    noord;
+    }
+    else{
+        while($row = mysqli_fetch_assoc($reso)) {
+        $ord=$row["order_id"];
+        $ord_total=$row["order_total"];
+        $stat=$row["delivery_status"];
+        $res_name=$row["rname"];
+        $img=$row["img"];
+        $driver_name=$row["dname"];
+        $item=$row["item_name"];
+        echo<<<ord
+<div class="pi">
     <figure class="pizza">
   <div class="pizza__hero">
-    <img src="./img/menu/<?php echo $menuc_id?>.jpg" alt="Pizza" class="pizza__img">
+    <img src="$img" alt="Pizza" class="pizza__img">
   </div>
   <div class="pizza__content">
     <div class="pizza__title">
-      <h1 class="pizza__heading"><?php echo $menuc_name?></h1>
+      <h1 class="pizza__heading">$item</h1>
     </div>
-    <p class="pizza__description">Cooked with Love,Served with joy from <br> <strong><?php echo $resc_name?></strong></p>
+    <p class="pizza__description">From The Restaurant :<strong>$res_name</strong></p>
     <div class="pizza__details">
-      <p class="pizza__detail">₹ <?php echo $menuc_price?></p>
+      <p class="pizza__detail">₹$ord_total</p>
     </div>
-    <div class="col-md-4 col-sm-4 margin-bottom-40">
-          <a href="./make_order.php?menu_id=<?php echo $menuc_id?>&u_id=<?php echo $uid?>" class="btn btn-mod btn-border btn-circle btn-medium">
-            Order Now
-          </a>
-        </div>
+    <div class="pizza__details">
+    <p class="pizza__detail">Order id:#$ord</p>
+  </div>
+    <div class="pizza__details">
+    <p class="pizza__detail">Status:$stat</p>
+  </div>
+  <div class="pizza__details">
+  <p class="pizza__detail">Driver:$driver_name</p>
+</div>
     </div>
   </div>
  
   
 </figure>
 </div>
+</br>
+ord;}
+    }
+
+    ?>
 <br>
 </section>
 
