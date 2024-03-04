@@ -7,6 +7,12 @@ $resc_name=$_GET['r_name'];
 $menuc_name=$_GET['m_name'];
 $menuc_price=$_GET['m_price'];
 $uid=$_SESSION['uid'];
+include 'db_connect.php';
+session_start();
+$uid=$_SESSION['uid'];
+if(!isset($_SESSION['uid'])){
+    header('Location: ./error.php?no=3');
+}
 
 ?>
 

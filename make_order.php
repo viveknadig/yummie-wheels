@@ -2,6 +2,10 @@
 include './db_connect.php';
 session_start();
 $uid=$_SESSION['uid'];
+if(!isset($_SESSION['uid'])){
+    header('Location: ./error.php?no=3');
+}
+$uid=$_SESSION['uid'];
 $did=rand(4001,4010);
 $m_id=$_GET['menu_id'];
 $sqlp="select price from Menu where menu_id=$m_id";

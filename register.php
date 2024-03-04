@@ -117,14 +117,7 @@
 								</div>
 								
 
-								<div class="form-group">
-									<label for="phonenumber">Phone number</label>
-									<input type="number" class="form-control" name="phone" >
-									<div class="invalid-feedback">
-										Phone Number is required
-									</div>
-								</div>
-								
+
 								<div class="form-group">
 									<label for="Address">Address</label>
 									<input id="number" type="text" class="form-control" name="address" required data-eye placeholder="Enter Address">
@@ -164,6 +157,14 @@
 									</div>
 								</div>
 								<script language="javascript">print_state("sts");</script>
+								<div class="form-group">
+									<label for="pincode">Phone</label>
+									<input  type="number" class="form-control" name="phone" required placeholder="Enter Phone" minlength="10">
+									<div class="invalid-feedback">
+										Pincode is required
+									</div>
+								</div>
+								
 
 								<!-- <div class="form-group">
 									<div class="custom-checkbox custom-control">

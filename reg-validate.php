@@ -13,11 +13,12 @@ $city=$_POST['city'];
 $pin_code=$_POST['pincode'];
 $sqlreg="select * from Users where email='$email'";
 $resultr=mysqli_query($conn, $sqlreg);
+echo "enter Valid phone";
 if (mysqli_num_rows($resultr) > 0) {
     header('Location: ./error.php?no=0');
 }
 else{
-    $sql_user="INSERT INTO `Users` (`user_id`, `name`, `email`, `password`, `phone`) VALUES (NULL,'{$name}','{$email}','{$pass}','{$ph}'); ";
+    $sql_user="INSERT INTO `Users` (`user_id`, `name`, `email`, `password`, `phone`) VALUES (NULL,'{$name}','{$email}','{$pass}','{$ph_no}'); ";
     mysqli_query($conn, $sql_user);
     $sql_address="select user_id from Users where email='$email'";
     $result=mysqli_query($conn, $sql_address);
