@@ -144,6 +144,7 @@ session_start();
                     echo<<<menu
                     <div class="food-item salad-type">
                     <div class="item-wrap bottom-up play-on-scroll">
+                    <a href="mycart.php?m_no=$menu_id&r_name=$rest_name&m_name=$menu_name&m_price=$menu_price">
                         <div class="item-img">
                             <div class="img-holder bg-img"
                                 style="background-image: url('$menu_img');"></div>
@@ -163,6 +164,7 @@ session_start();
                             </div>
                         </div>
                     </div>
+                    </a>
                 </div>
                 menu;
                 }
