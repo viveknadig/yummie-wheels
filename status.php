@@ -2,11 +2,41 @@
 include 'db_connect.php';
 session_start();
 $uid=$_SESSION['uid'];
+$oid=$_GET['oid'];
+$ooid=$_GET['oid'];
 if(!isset($_SESSION['uid'])){
     header('Location: ./error.php?no=3');
 }
-$sqlo="select M.img,D.name as dname,M.item_name,R.name as rname,O.order_id,O.order_total,O.delivery_status from Orders O,Menu M,Users U,Drivers D,Restaurants R where O.user_id=U.user_id and D.driver_id=O.driver_id and M.menu_id=O.menu_id and M.restaurant_id=R.restaurant_id and O.user_id=$uid";
+
+$sqlo="select Address.state as state,Address.city as city,Address.street as street,Address.pincode as pin,Menu.item_name as mname,order_id as oid,order_total as price,Drivers.name as dname,delivery_status as status,Menu.img as img,Drivers.phone from Orders,Menu,Drivers,Address where Orders.menu_id=Menu.menu_id  and Orders.driver_id=Drivers.driver_id and Orders.user_id=Address.user_id and order_id=$oid;";
 $reso=mysqli_query($conn, $sqlo);
+$row = mysqli_fetch_assoc($reso);
+    $mname=$row["mname"];
+    $price=$row["price"];
+    $dname=$row["dname"];
+    $status=$row["status"];
+    $img=$row["img"];
+    $phone=$row["phone"];
+    $state=$row["state"];
+    $street=$row["street"];
+    $city=$row["city"];
+    $pin=$row["pin"];
+    if($status=="cooking"){
+        $st=1;
+    }
+    elseif($status=="pending"){
+        $st=2;
+    }
+    elseif($status=="delivered"){
+        $st=3;
+    }
+    $sqll="select * from Payment where order_id=$oid;";
+    $ress=mysqli_query($conn,$sqll);
+    $rest=mysqli_fetch_assoc($ress);
+    $pid=$rest["payment_id"];
+    $pm=$rest["payment_method"];
+    $pst=$rest["status"];
+    $pr=$rest["amount"];
 ?>
 <!DOCTYPE html>
 
@@ -19,12 +49,11 @@ $reso=mysqli_query($conn, $sqlo);
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
-
 <body>
-    <!-- MOBILE NAV -->
-    <div class="mb-nav">
+      <!-- MOBILE NAV -->
+      <div class="mb-nav">
         <div class="mb-move-item"></div>
         <div class="mb-nav-item">
             <a href="./index.php">
@@ -97,90 +126,94 @@ $reso=mysqli_query($conn, $sqlo);
             </div>
         </div>
     </div>
+    <section>
+    <section class="root">
+  <figure >
+    <img src="<?php echo $img?>" alt="" class="figure-img">
+    <figcaption>
+      <h4>Tracking Details:</h4>
+      <h4><?php echo $mname?></h4>
+      <h6>Order Number # <?php echo $oid?></h6>
+      
+      <h4>Delivery Agent: <?php echo $dname?></h4>
+      <h6>Call:<a href="tel:+91<?php echo $phone?>"> +91<?php echo $phone?></a></h6>
+      <br>
+      <h4>Shipping Address:</h4><br>
+      <h6><?php echo<<<out
+                    {$street}</br>{$city}</br>{$state}</br>{$pin}
+                    out;
+                    ?></h6>
+        <h4>Payment Details:</h4>
+        <h6><?php echo<<<out
+                    Transaction ID: {$pid}</br>Payment Method: {$pm}</br>Status: {$pst}</br> Price: {$pr}
+                    out;
+                    ?></h6>
+    </figcaption>
+  </figure>
+  <div class="order-track">
 
-    <!-- END TOP NAVIGATION -->
-    <!-- FOOD MENU SECTION -->
-
-    <!-- <section class="align-items-center bg-img bg-img-fixed" id="food-menu-section" -->
-        <section>
-        <div class="container">
-            <div class="">
-                <?php
-
-                ?>
-                <h1 style="text-align: center;">
-                    My  <span class="third-color">Orders</span>
-                </h1>
-                <p style="text-align: center;">
-                    Here is the List of all Orders:
-                </p>
-            </div>
-        </div>
-    <br>
-    <?php
-    if (mysqli_num_rows($reso) <=0) {
-    echo <<<noord
-    "<h2 style="text-align: center;">
-    No Orders Yet</h2>
-    <div class="slogan" style="    display: flex;
-    justify-content: center;">
-    <button onclick="window.location.href='./res.php';">Order Now</button>
+    <?php echo<<<print
+    <div class="order-track-step">
+      <div class="order-track-status">
+        <span class="order-track-status-dot"></span>
+        <span class="order-track-status-line"></span>
+      </div>
+      <div class="order-track-text">
+        <p class="order-track-text-stat">Cooking</p>
+        <span class="order-track-text-sub">Your order is being cooked</span>
+      </div>
     </div>
-    noord;
-    }
-    else{
-        while($row = mysqli_fetch_assoc($reso)) {
-        $ord=$row["order_id"];
-        $ord_total=$row["order_total"];
-        $stat=$row["delivery_status"];
-        $res_name=$row["rname"];
-        $img=$row["img"];
-        $driver_name=$row["dname"];
-        $item=$row["item_name"];
-        echo<<<ord
-<div class="pi">
-    <figure class="pizza">
-  <div class="pizza__hero">
-    <img src="$img" alt="Pizza" class="pizza__img">
-  </div>
-  <div class="pizza__content">
-    <div class="pizza__title">
-      <h1 class="pizza__heading">$item</h1>
-    </div>
-    <p class="pizza__description">From The Restaurant :  <strong>$res_name</strong></p>
-    <div class="pizza__details">
-      <p class="pizza__detail">₹$ord_total</p>
-    </div>
-    <div class="pizza__details">
-    <p class="pizza__detail">Order id:#$ord</p>
-  </div>
-    <div class="pizza__details">
-    <p class="pizza__detail">Status:$stat</p>
-  </div>
-  <div class="pizza__details">
-  <p class="pizza__detail">Driver:$driver_name</p>
-</div>
-<div class="col-md-4 col-sm-4 margin-bottom-40">
-<a href="./status.php?oid=$ord" class="btn btn-mod btn-border btn-circle btn-medium">
-  View➤
-</a>
-</div>
-    </div>
-  </div>
- 
-  
-</figure>
-</div>
-</br>
-ord;}
-    }
-
+    print;
     ?>
-<br>
-</section>
+    <?php
+    if($st==2){
+        echo<<<out1
+        <div class="order-track-step">
+        <div class="order-track-status">
+          <span class="order-track-status-dot"></span>
+          <span class="order-track-status-line"></span>
+        </div>
+        <div class="order-track-text">
+          <p class="order-track-text-stat">Food is on the way</p>
+          <span class="order-track-text-sub">Our delivery agent will deliver your order soon</span>
+        </div>
+        </div>
+        </div>
+        out1;
+    }
+    elseif($st==3){
+        echo<<<out1
+        <div class="order-track-step">
+        <div class="order-track-status">
+          <span class="order-track-status-dot"></span>
+          <span class="order-track-status-line"></span>
+        </div>
+        <div class="order-track-text">
+          <p class="order-track-text-stat">Food is on the way</p>
+          <span class="order-track-text-sub">Our delivery agent will deliver your order soon</span>
+        </div>
+        </div>
+        <div class="order-track-step">
+        <div class="order-track-status">
+          <span class="order-track-status-dot"></span>
+          <span class="order-track-status-line"></span>
+        </div>
+        <div class="order-track-text">
+          <p class="order-track-text-stat">Delivered</p>
+          <span class="order-track-text-sub">Your food is delivered at your door steps</span>
+        </div>
+        </div>
+        </div>
+        <div class="col-md-4 col-sm-4 margin-bottom-40">
+        <a href="./download.php?oid=$oid" class="btn btn-mod btn-border btn-circle btn-medium">Download Invoice</a>
+        </div>
+        out1;
+    }
+    ?>
 
-    <!-- END FOOD MENU SECTION -->
-    <!-- FOOTER SECTION -->
+</section>
+</section> 
+
     <section class="footer bg-img" style="background-color: var(--third-color);">
         <div class="container">
             <div class="row">
@@ -232,9 +265,5 @@ ord;}
             </div>
         </div>
     </section>
-    <!-- END FOOTER SECTION -->
 
-    <script src="js/main.js"></script>
 </body>
-
-</html>
