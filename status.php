@@ -3,7 +3,6 @@ include 'db_connect.php';
 session_start();
 $uid=$_SESSION['uid'];
 $oid=$_GET['oid'];
-$ooid=$_GET['oid'];
 if(!isset($_SESSION['uid'])){
     header('Location: ./error.php?no=3');
 }
