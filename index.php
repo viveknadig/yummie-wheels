@@ -7,6 +7,7 @@ session_start();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="author" content="Vivek Nadig">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yummie Wheels</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -84,11 +85,13 @@ session_start();
                     </div>
                 </a>
             </div>
+            <a href="./order.php">
             <div class="right-menu">
                 <div class="cart-btn">
                     <i class='bx bx-cart-alt'></i>
                 </div>
             </div>
+            </a>
         </div>
     </div>
     <!-- END TOP NAVIGATION -->
@@ -148,12 +151,10 @@ session_start();
         <div class="container">
             <div class="food-menu">
                 <h1>
-                    What will <span class="primary-color">you</span> eat today?
+                    What will <span class="third-color">you</span> eat today?
                 </h1>
                 <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque alias aliquam eveniet, iure
-                    praesentium dicta ex dolorum inventore itaque minus repudiandae, odio provident? Velit architecto
-                    natus expedita non? Odio, dolorum.
+                Treat Yourself to a gourmet experience with Yummie Wheels,The online food ordering platform for restaurants.Choose from a wide range of cuisines and categories,and get fresh food delivery in minutes
                 </p>
                 <div class="food-category">
                     <!-- <div class="zoom play-on-scroll"> -->
@@ -176,9 +177,9 @@ session_start();
                     <br>
                     <p>Yummie Wheels is a food delivery service that brings delicious meals to your doorsteps in minutes.Whatever you are craving for pizza,pasta ,biriyani.</p>
                     <br>
-                    <p>Email: <a href="mailto:contact@yummie.com">contact@yummie.com</a></p>
+                    <p>Email: <a href="mailto:contact@yummie.com">contact@yummiewheels.com</a></p>
                     <p>Phone: <a href="tel:+911234567890">+911234567890</a></p>
-                    <p>Website: yummiefood.com</p>
+                    <p>Website: yummiewheels.com</p>
                 </div>
                 <div class="col-2 col-xs-12">
                     <h1>
