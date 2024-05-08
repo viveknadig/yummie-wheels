@@ -1,7 +1,7 @@
 <?php
     $server="localhost";
     $username="root";
-    $password="toor";
+    $password="";
     $db_name="yw";
 
     $conn="";
