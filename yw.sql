@@ -34,7 +34,7 @@ CREATE TABLE `Address` (
   `city` varchar(255) NOT NULL,
   `street` varchar(255) NOT NULL,
   `pincode` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+)
 
 --
 -- Dumping data for table `Address`
@@ -56,8 +56,7 @@ CREATE TABLE `Drivers` (
   `phone` varchar(20) NOT NULL,
   `location` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
+)
 --
 -- Dumping data for table `Drivers`
 --
@@ -86,7 +85,7 @@ CREATE TABLE `Menu` (
   `item_name` varchar(255) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `img` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) 
 
 --
 -- Dumping data for table `Menu`
@@ -177,7 +176,7 @@ CREATE TABLE `Orders` (
   `delivery_status` varchar(20) NOT NULL,
   `driver_id` int NOT NULL,
   `menu_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+)
 
 --
 -- Dumping data for table `Orders`
@@ -200,7 +199,7 @@ CREATE TABLE `Payment` (
   `payment_method` varchar(20) NOT NULL,
   `amount` decimal(10,2) NOT NULL,
   `status` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+)
 
 --
 -- Dumping data for table `Payment`
@@ -221,7 +220,7 @@ CREATE TABLE `Rating` (
   `user_id` int NOT NULL,
   `restaurant_id` int NOT NULL,
   `rating` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+)
 
 -- --------------------------------------------------------
 
@@ -236,7 +235,7 @@ CREATE TABLE `Restaurants` (
   `phone` varchar(20) NOT NULL,
   `desp` varchar(300) NOT NULL,
   `img` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+)
 
 --
 -- Dumping data for table `Restaurants`
@@ -264,8 +263,7 @@ CREATE TABLE `Users` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `phone` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
+)
 --
 -- Dumping data for table `Users`
 --
